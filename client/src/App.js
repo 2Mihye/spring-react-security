@@ -68,9 +68,7 @@ export default function App() {
         <Route
           path="/add"
           element={<AddProduct onAddProduct={handleAddProduct} />}
-        >
-          <h2>상품추가 Js 만들어서 element 추가 예정</h2>
-        </Route>
+        />
         <Route path="/item">
           <h2>상품 목록</h2>
         </Route>

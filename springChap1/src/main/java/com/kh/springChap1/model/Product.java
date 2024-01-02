@@ -12,5 +12,5 @@ public class Product {
 	@SequenceGenerator(name="product_seq", sequenceName = "product_seq", allocationSize=1)
 	private Long id;
 	private String item_name;
-	private int price;
+	private int price;  
 }
