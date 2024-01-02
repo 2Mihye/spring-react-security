@@ -14,7 +14,10 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.get("http://localhost:8081/api/product/item");
+        const response = await axios.get(
+          "http://localhost:8081/api/product/item"
+        );
+        setProducts(response.data);
       } catch (error) {
         console.log("데이터를 불러오지 못했습니다.", error);
       }
@@ -56,7 +59,9 @@ export default function App() {
               {product.item_name} : {product.price} 원
             </li>
           ))}
-          <li>상품 목록 추가</li>
+          <li>
+            <Link to="/add">상품 목록 추가</Link>
+          </li>
         </ul>
       </div>
       <Routes>
