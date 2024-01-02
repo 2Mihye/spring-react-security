@@ -11,7 +11,7 @@ import com.kh.springChap1.repository.ProductRepository;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins="http://localhost:3000", allowCredentials="true")
+@CrossOrigin(origins="http://localhost:3000", allowCredentials="true", allowedHeaders="*")
 public class ProductController {
 	@Autowired
 	private ProductRepository productRepository;

@@ -12,11 +12,11 @@ export default function App() {
 
   // get 해주는 axios API 적기
   useEffect(() => {
+    // async는 비동기 시작을 예고하는 것
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8081/api/product/item"
-        );
+        // await 기다렸다가 동시에 실행을 시켜주는 녀석
+        const response = await axios.get("http://localhost:8081/api/item");
         setProducts(response.data);
       } catch (error) {
         console.log("데이터를 불러오지 못했습니다.", error);
@@ -69,9 +69,7 @@ export default function App() {
           path="/add"
           element={<AddProduct onAddProduct={handleAddProduct} />}
         />
-        <Route path="/item">
-          <h2>상품 목록</h2>
-        </Route>
+        <Route path="/item" element={<h2>상품 목록</h2>}></Route>
       </Routes>
     </Router>
   );
