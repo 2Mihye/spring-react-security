@@ -25,7 +25,7 @@ function App() {
   // 데이터 작성한 내용으로 변경하는 함수
   // e : even의 약자
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target; // input 안에 넣는 name과 value !
     setNewMember((prevMember) => ({ ...prevMember, [name]: value })); // prevMember을 복제해서 name을 내가 쓴 값으로 설정하는 것
   };
 
