@@ -4,6 +4,8 @@ import axios from "axios";
 const App = () => {
   const [products, setProducts] = useState([]);
   const [newProduct, setNewProduct] = useState({ item_name: "", price: 0 });
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     axios
@@ -42,6 +44,28 @@ const App = () => {
         console.error("error", error);
       });
   };
+
+  const handleEditProduct = (product) => {
+    setEditingProduct(product);
+    setNewProduct({item_name : product.item_name, price: product.price});
+    setIsEditing(true);
+  };
+
+  const handleUpdateProduct = () => {
+    axios
+    .put(`http://localhost:8081/api/update/${editingProduct.id}`, newProduct)
+    .then((response) => {
+        setProducts((prevProducts = prevProducts.map((product) => {
+            if(product.id === editingProduct.id) {
+                return response.data;
+            }
+            return product;
+        })))
+        reuturn updatedProducts;
+    })
+  }
+
+
   return (
     <div>
       <h2>상품 리스트</h2>
@@ -49,6 +73,7 @@ const App = () => {
         {products.map((product) => (
           <li key={product.id}>
             {product.item_name} - {product.price} 원
+            <button onClick={() => handleEditProduct(product)}>수정</button>
             <button onClick={() => handleDeleteProduct(product.id)}>
               삭제
             </button>
@@ -56,7 +81,7 @@ const App = () => {
         ))}
       </ul>
 
-      <h2>상품 추가</h2>
+      <h2>{isEditing ? "상품 수정" : "상품 추가"}</h2>
       <label>상품명:</label>
       <input
         type="text"
@@ -76,8 +101,13 @@ const App = () => {
           setNewProduct({ ...newProduct, price: e.target.valueAsNumber })
         }
       />
-
-      <button onClick={handleAddProduct}>상품추가</button>
+      {isEditing ? (
+        <div>
+          <button onClick={handleUpdateProduct}>수정</button>
+        </div>
+      ) : (
+        <button onClick={handleCancelProduct}>수정취소</button>
+      )}
     </div>
   );
 };
