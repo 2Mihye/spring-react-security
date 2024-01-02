@@ -22,7 +22,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<Product> addProduct(@RequestBody Product product){
+	public ResponseEntity<Product> addProduct(@RequestBody Product product){ // RequestBody는 input에 넣은 값을 요청하는 것
 		Product saveProduct = productRepository.save(product);
 		return ResponseEntity.ok(saveProduct);
 	}
