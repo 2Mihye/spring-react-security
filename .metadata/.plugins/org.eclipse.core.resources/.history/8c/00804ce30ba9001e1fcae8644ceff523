@@ -1,0 +1,17 @@
+package com.kh.springChap1.controller;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController // api로 전달해서 호출 @Controller는 html 파일을 바라보게 하고, RestController는 controller 안에있는 데이터를 전달
+@RequestMapping("/")
+// cors : 쿠키나 세션 무언가 접속하는 것을 허용해줄 때 사용
+@CrossOrigin(origins="http://localhost:3000", allowCredentials="true")
+public class HelloController {
+	@GetMapping("/connection")
+	public String getHello() {
+		return "Is it connected ?!";
+	}
+}

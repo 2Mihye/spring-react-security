@@ -1,0 +1,16 @@
+# port번호 설정
+server.port=8080
+
+# DB 연결 설정
+spring.datasource.url=jdbc:oracle:thin:@//localhost:1521/XE
+spring.datasource.username=khbank
+spring.datasource.password=KHBANK
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+
+# hello가 찍히는지 봐야하므로 template 설정 -> 나중에 react로 변경할 것
+spring.thymeleaf.prefix=classpath:/templates/
+spring.thymeleaf.suffix=.html
+spring.resources.static-locations=classpath:/static
+
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update

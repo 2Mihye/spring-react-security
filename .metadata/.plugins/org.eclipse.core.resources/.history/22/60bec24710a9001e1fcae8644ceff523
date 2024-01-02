@@ -1,0 +1,10 @@
+package com.kh.springChap1.model;
+
+import jakarta.persistence.*;
+
+
+@Entity
+public class User {
+	@Id
+	private Long id;
+}

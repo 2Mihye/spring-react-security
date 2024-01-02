@@ -1,0 +1,8 @@
+# port번호 설정
+server.port=8080
+
+# DB 연결 설정
+spring.datasource.url=jdbc:oracle:thin://localhost:1521/xe
+spring.datasource.username=khbank
+spring.datasource.password=KHBANK
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
