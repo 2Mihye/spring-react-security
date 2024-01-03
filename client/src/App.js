@@ -9,7 +9,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/api/item")
+      .get("http://localhost:8080/api/product/item")
       .then((response) => {
         setProducts(response.data);
       })
@@ -20,7 +20,7 @@ const App = () => {
 
   const handleAddProduct = () => {
     axios
-      .post("http://localhost:8081/api/add", newProduct)
+      .post("http://localhost:8080/api/product/add", newProduct)
       .then((response) => {
         setProducts((prevProducts) => [...prevProducts, response.data]);
         setNewProduct({ item_name: "", price: 0 });
@@ -32,7 +32,7 @@ const App = () => {
 
   const handleDeleteProduct = (id) => {
     axios
-      .delete(`http://localhost:8081/api/delete/${id}`)
+      .delete(`http://localhost:8080/api/product/delete/${id}`)
       .then((response) => {
         setProducts((prevProduct) =>
           // 현재 목록에서 삭제할 제품을 제외하고 새로운 배열을 생성
@@ -47,24 +47,40 @@ const App = () => {
 
   const handleEditProduct = (product) => {
     setEditingProduct(product);
-    setNewProduct({item_name : product.item_name, price: product.price});
+    setNewProduct({ item_name: product.item_name, price: product.price });
     setIsEditing(true);
   };
 
   const handleUpdateProduct = () => {
+    if (!editingProduct) {
+      console.error("업데이트 할 수 없습니다.");
+      return;
+    }
+
     axios
-    .put(`http://localhost:8081/api/update/${editingProduct.id}`, newProduct)
-    .then((response) => {
-        setProducts((prevProducts = prevProducts.map((product) => {
-            if(product.id === editingProduct.id) {
-                return response.data;
+      .put(
+        `http://localhost:8080/api/product/update/${editingProduct.id}`,
+        newProduct
+      )
+      .then((response) => {
+        setProducts((prevProducts) => {
+          const updatedProducts = prevProducts.map((product) => {
+            if (product.id === editingProduct.id) {
+              return response.data;
             }
             return product;
-        })))
-        reuturn updatedProducts;
-    })
-  }
+          });
+          return updatedProducts;
+        });
 
+        setNewProduct({ item_name: "", price: 0 });
+        setEditingProduct(null);
+        setIsEditing(false);
+      })
+      .catch((error) => {
+        console.error("Update error : ", error);
+      });
+  };
 
   return (
     <div>
@@ -101,12 +117,13 @@ const App = () => {
           setNewProduct({ ...newProduct, price: e.target.valueAsNumber })
         }
       />
+
       {isEditing ? (
         <div>
           <button onClick={handleUpdateProduct}>수정</button>
         </div>
       ) : (
-        <button onClick={handleCancelProduct}>수정취소</button>
+        <button onClick={handleDeleteProduct}>수정취소</button>
       )}
     </div>
   );

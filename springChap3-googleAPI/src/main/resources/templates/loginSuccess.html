@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>loginSuccess</title>
+	</head>
+	<body>
+		<h1 th:if="${newUser}">환영합니다. 새로운 사용자님 !</h1>
+		<h1 th:unless="${newUser}">다시 오신 것을 환영합니다 !</h1>
+		
+		<!-- 
+			authentication : 사용자의 인증정보를 나타냄
+			principal : 사용자의 아이디나 사용자에 대한 정보를 가지고 있는 객체
+			getAttribute('email') : principal 사용자 정보에서 이메일을 가지고 오겠다는 의미
+		 -->
+		
+		<p th:text="${#authentication.principal.getAttribute('email')}"></p>
+		
+		<!-- 로그아웃 링크 추가 -->
+		<a th:href="@{/oauth/logout}">로그아웃</a>
+	</body>
+</html>
