@@ -1,6 +1,9 @@
 package com.kh.springChap3googleAPI.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,11 +25,13 @@ public class OAuthController {
 	@Autowired
 	private UserService userService;
 	
+	
 	@GetMapping("/loginSuccess")
 	public String loginSuccess(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
 		String email = oauthUser.getAttribute("email");
 		UserGoogle user = userService.findByUsername(email);
-		
+		System.out.println("OAuth2User: " + oauthUser);
+		System.out.println("이메일 속성: " + email);
 		if (user == null) {
 			user = new UserGoogle();
 			user.setUsername(email);
@@ -35,8 +40,27 @@ public class OAuthController {
 			
 			model.addAttribute("newUser", true);
 		}
+		model.addAttribute("email", email);
 		return "loginSuccess";
 	}
+	
+	/*
+	@GetMapping("/loginSuccess")
+	public ResponseEntity<UserGoogle> loginSuccess(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
+		String email = oauthUser.getAttribute("email");
+		UserGoogle user = userService.findByUsername(email);
+		if (user == null) {
+			user = new UserGoogle();
+			user.setUsername(email);
+			user.setEmail(email);
+			userService.saveUser(user);
+			
+			model.addAttribute("newUser", true);
+		}
+		
+		return ResponseEntity.ok(user);
+	}*/
+	
 	
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {

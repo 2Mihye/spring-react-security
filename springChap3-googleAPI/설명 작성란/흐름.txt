@@ -1,0 +1,10 @@
+
+	<Google 로그인 흐름>
+	1. 구글로 로그인하겠다는 요청이 들어옴.
+	2. 구글로 로그인할 수 있는 공간(/oauth/loginSuccess)으로 이동.
+	3. 해당하는 메서드에서 OAuth2를 사용하여 사용자정보를 가지고 오고, 가지고 온 정보를 데이터베이스에 저장하거나 그대로 세션에 가지고 있는 상태로 loginSuccess 라는 html 파일로 이동	
+	4. UserDetailsServiceImpl 안에 있는 loadUserByUsername 메서드에서 사용자 정보를 DB에 저장하거나 가지고있는 상태에서 Spring Security에서 UserDetails에 객체로 사용자 정보를 다시 전달.
+	5. 해당 UserDetails 객체는 Spring Security에서 인증과 권한 부여에 사용할 수 있음. 또는 DB에 저장하거나 저장 돼있는 정보를 가져올 수 있음.
+	6. UserGoogleRepository와 UserRepository를 사용하여 DB에 저장된 사용자 정보를 조회하고 조작할 수 있다.
+	7. UserServiceImpl 에서는 UserGoogleRepository를 받아서 이 Repository를 통해 사용자 정보를 처리할 수 있다. 하여 기존에 로그인하던 방식과 크게 다른점은 없지만 다른 사이트의 정보를 가져와서 조회하고
+	   나의 DB에 저장하여 다시 가져온다는 부분이 조금 다를 뿐임.

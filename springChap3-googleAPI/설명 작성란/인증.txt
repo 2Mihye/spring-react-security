@@ -23,3 +23,9 @@ OAuth 2.0 : 두 번째 버전(더 간결함)
 			2. Owner(오너) : 데이터에 대한 권한을 부여하거나 거부하는 역할
 			3. Authorization(권한) : 권한을 부여하고 토큰을 발급하는 역할
 			4. Server(서버) : 보호되는 데이터를 가지고있고, 토큰이 유효한지 확인 후 클라이언트에게 정보를 제공
+			
+
+@AuthenticationPrincipal OAuth2User oauthUser
+	@AuthenticationPrincipal : Spring Security에서 제공하는 어노테이션으로 현재 사용자의 인증정보에 대해 접근할 때 사용.
+	OAuth2User : OAuth2.0으로 인증된 사용자 정보를 나타낼 수 있는 인터페이스
+	oauthUser : 파라미터의 이름으로 로그인을 했을 경우 사용자의 정보를 담고있음.
