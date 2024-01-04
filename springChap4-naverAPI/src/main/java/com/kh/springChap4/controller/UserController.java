@@ -22,6 +22,7 @@ public class UserController {
 	
 	@GetMapping("/loginSuccess")
 	public String loginSuccess(@AuthenticationPrincipal OAuth2User principal, Model model) {
+		
 		System.out.println("OAuth2User Attributes : " + principal.getAttributes());
 		
 		model.addAttribute("name", principal.getAttribute("name"));

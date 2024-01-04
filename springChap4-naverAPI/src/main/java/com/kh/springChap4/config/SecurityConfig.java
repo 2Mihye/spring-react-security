@@ -73,7 +73,6 @@ public class SecurityConfig {
 				.build();
 	}
 	
-
 	
 	// 구글 클라이언트의 등록 정보를 생성하는 메서드로 클라이언트 아이디와 시크릿, 인증 후 리다이렉트 URI 설정
 	public ClientRegistration googleClientRegistration() {
