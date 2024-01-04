@@ -1,5 +1,7 @@
 
-URI 와 URL의 차이
+URI, URL, URN 및 프로토콜의 개념과 차이에 대한 종합 설명
+
+
 	URI(Uniform Resource Identifier)
 			종합적인 자원 식별자로 리소스를 유일하게 식별하고 위치를 지정하는 일반적인 식별자인데, 두가지 유형이 존재한다.
 			URL(Uniform Resource Locator) : 리소스가 어디에 있는지를 나타내며 일반적으로 프로토콜(http https)과 호스트명 리소스 경로 등의 요소로 구성된다. (URI보다 더 자세한 것)
