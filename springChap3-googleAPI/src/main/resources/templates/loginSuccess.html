@@ -14,7 +14,10 @@
 			getAttribute('email') : principal 사용자 정보에서 이메일을 가지고 오겠다는 의미
 		 -->
 		
-		<p th:text="${#authentication.principal.getAttribute('email')}"></p>
+		<p th:text="${#authentication?.principal?.getAttribute('email')}"></p><!-- 예외 방지처리가 됨. -->
+		<!-- <p th:text="${#authentication.principal.getAttribute('email')}"></p> 예외가 발생하는 것을 나타내줌. = 어떤 에러인지 알 수 있음 -->
+		<p th:text="${email}"></p> 
+		<p th:text="${oauthUser != null ? oauthUser.getAttribute('email') : 'Unknown'}"></p>
 		
 		<!-- 로그아웃 링크 추가 -->
 		<a th:href="@{/oauth/logout}">로그아웃</a>

@@ -1,10 +1,10 @@
-package com.kh.springChap3googleAPI.service;
+package com.kh.springChap3.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.springChap3googleAPI.model.UserGoogle;
-import com.kh.springChap3googleAPI.repository.UserGoogleRepository;
+import com.kh.springChap3.model.UserGoogle;
+import com.kh.springChap3.repository.UserGoogleRepository;
 
 @Service
 public class UserServiceImpl implements UserService {

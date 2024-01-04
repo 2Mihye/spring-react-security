@@ -16,7 +16,7 @@
 		
 		<p th:text="${#authentication?.principal?.getAttribute('email')}"></p>
 		<p th:text="${email}"></p> 
-<p th:text="${oauthUser != null ? oauthUser.getAttribute('email') : 'Unknown'}"></p>
+		<p th:text="${oauthUser != null ? oauthUser.getAttribute('email') : 'Unknown'}"></p>
 		
 		<!-- 로그아웃 링크 추가 -->
 		<a th:href="@{/oauth/logout}">로그아웃</a>

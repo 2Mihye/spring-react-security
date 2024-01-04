@@ -19,7 +19,7 @@ import com.kh.springChap3googleAPI.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@Controller
+@RestController
 @RequestMapping("/oauth")
 public class OAuthController {
 	@Autowired
@@ -27,47 +27,32 @@ public class OAuthController {
 	
 	
 	@GetMapping("/loginSuccess")
-	public String loginSuccess(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
+	public ResponseEntity<String> loginSuccess(@AuthenticationPrincipal OAuth2User oauthUser) {
 		String email = oauthUser.getAttribute("email");
 		UserGoogle user = userService.findByUsername(email);
-		System.out.println("OAuth2User: " + oauthUser);
-		System.out.println("이메일 속성: " + email);
-		if (user == null) {
-			user = new UserGoogle();
-			user.setUsername(email);
-			user.setEmail(email);
-			userService.saveUser(user);
-			
-			model.addAttribute("newUser", true);
-		}
-		model.addAttribute("email", email);
-		return "loginSuccess";
-	}
-	
-	/*
-	@GetMapping("/loginSuccess")
-	public ResponseEntity<UserGoogle> loginSuccess(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
-		String email = oauthUser.getAttribute("email");
-		UserGoogle user = userService.findByUsername(email);
-		if (user == null) {
-			user = new UserGoogle();
-			user.setUsername(email);
-			user.setEmail(email);
-			userService.saveUser(user);
-			
-			model.addAttribute("newUser", true);
-		}
 		
-		return ResponseEntity.ok(user);
-	}*/
+		System.out.println("OAuth2User: " + oauthUser); // 제대로 정보를 담아 출력하고 있는지 확인하기 위해 System.out.println을 찍어볼 것 !
+		System.out.println("이메일 속성: " + email);
+		
+		if (user == null) {
+			user = new UserGoogle();
+			user.setUsername(email);
+			user.setEmail(email);
+			userService.saveUser(user);
+			
+			// model.addAttribute("newUser", true);
+		}
+		// model.addAttribute("email", email);
+		return ResponseEntity.ok("loginSuccess");
+	}
 	
 	
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
-		return "redirect:/";
+		return ResponseEntity.ok("로그아웃 됐습니다.");
 	}
 }
