@@ -1,0 +1,14 @@
+
+URI 와 URL의 차이
+	URI(Uniform Resource Identifier)
+			종합적인 자원 식별자로 리소스를 유일하게 식별하고 위치를 지정하는 일반적인 식별자인데, 두가지 유형이 존재한다.
+			URL(Uniform Resource Locator) : 리소스가 어디에 있는지를 나타내며 일반적으로 프로토콜(http https)과 호스트명 리소스 경로 등의 요소로 구성된다. (URI보다 더 자세한 것)
+
+			URN(Uniform Resource Name) : 자원의 위치에 의존하지 않고 이름 자체로 자원을 식별한다. 어디있는지가 아니라 무엇인지에 중점을 둔 식별자이다.
+										 = ISBN 같은 것
+
+프로토콜(Protocol)
+	HTTP(HyperText Transfer Protocol) : 일반적으로 웹에서 텍스트나 그림 음성 동영상 등의 소스를 주고받기 위해 사용하는 주소
+	
+	HTTPS(HyperText Transfer Secure) : 보안이 강화된 버전으로 웹에서 텍스트나 그림 음성 동영상 등의 소스를 주고받기 위해 사용하는 주소로 암호화된 통신을 사용하여 데이터 변조나 도청을 방지해준다.
+									   
