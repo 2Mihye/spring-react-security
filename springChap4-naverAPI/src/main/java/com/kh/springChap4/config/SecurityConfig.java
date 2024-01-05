@@ -35,8 +35,10 @@ public class SecurityConfig {
     @Bean
     public ClientRegistrationRepository clientRegistrationRepository() {
         return new InMemoryClientRegistrationRepository(
-                naverClientRegistration(),
-                googleClientRegistration());
+        		googleClientRegistration(),
+        		kakaoClientRegistration(),
+                naverClientRegistration() 
+                );
     }
 	
 	// 인증 통합 관리하는 매니저
@@ -91,4 +93,20 @@ public class SecurityConfig {
 				.build();
 	}
 	
+	
+	// 카카오 클라이언트의 등록 정보를 생성하는 메서드로 클라이언트 아이디와 시크릿, 인증 후 리다이렉트 URI 설정
+	public ClientRegistration kakaoClientRegistration() {
+		return ClientRegistration.withRegistrationId("kakao")
+				.clientId("6c3b346d2a0b7b41c957f43c7b5f73e0")
+				.clientSecret("baaXUhOwcQ9uw7dnRDF91IM0KrJgYaKo")
+				.redirectUri("http://localhost:8080/login/oauth2/code/kakao") // 네이버에서도 인증 후 OAuth2 엔드포인트설정
+				.clientName("Kakao")
+				.authorizationUri("https://kauth.kakao.com/oauth/authorize")
+				.tokenUri("https://kauth.kakao.com/oauth/token")
+				.userInfoUri("https://kapi.kakao.com/v2/user/me")
+				.userNameAttributeName("id")
+				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+				.scope("profile_nickname", "account_email") // 추후 변경할 동의항목 내역
+				.build();
+	}
 }

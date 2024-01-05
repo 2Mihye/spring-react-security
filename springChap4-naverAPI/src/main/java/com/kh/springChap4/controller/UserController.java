@@ -14,16 +14,18 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.springChap4.model.UserSNS;
 import com.kh.springChap4.repository.UserRepository;
+import com.kh.springChap4.service.GoogleService;
+import com.kh.springChap4.service.UserService;
 
 @Controller
 public class UserController {
+	private final UserService userService;
+	private final GoogleService googleService;
 	
-	// 2. repository
-	private final UserRepository userRepository;
-	
-	@Autowired // Autowired나 선언하는 녀석들은 항상 위에 있도록 해줘야 함 !
-	public UserController(UserRepository userRepository){
-		this.userRepository = userRepository;
+	@Autowired
+	public UserController(UserService userService, GoogleService googleService) {
+		this.userService = userService;
+		this.googleService = googleService;
 	}
 	
 	
@@ -32,11 +34,11 @@ public class UserController {
 		return "index";
 	}
 	
-	/* 구글 로그인을 위한 URL 추가
+	// 구글 로그인을 위한 URL 추가
 	@GetMapping("/oauth2/authorization/google")
 	public String googleLogin() {
 		return "redirect:/oauth2/authorization/google";
-	}*/
+	}
 	
 	// 네이버 로그인을 위한 URL 추가
 	@GetMapping("/oauth2/authorization/naver")
@@ -60,70 +62,33 @@ public class UserController {
 	
 	// naver일 때
 	@GetMapping("/loginSuccess")
-	public String loginSuccess(@AuthenticationPrincipal OAuth2User principal,
+	public String naverLoginSuccess(@AuthenticationPrincipal OAuth2User principal,
 			@RequestParam(value="naverResponse", required=false) String naverResponse,
 			Model model) {
 		
+		userService.naverLoginService(principal, naverResponse, model);
+		
+		return "loginSuccess";
+	}
+	
+	// google일 때
+	@GetMapping("/loginSuccessGoogle")
+	public String googleLoginSuccess(@AuthenticationPrincipal OAuth2User principal, Model model) {
+		googleService.googleLoginService(principal, model);
+		
 		System.out.println("OAuth2User Attributes : " + principal.getAttributes());
-		String name = null;
-		String email = null;
 		
-		// 만약 naver 응답이 들어와서 null 값이 아니라면 !
-		if(naverResponse != null) {
-			// 들어온 naver응답 값을 Json 형식으로 담을 수 있도록 아무런 값도 없는 Json형태를 세팅해주고 그 안에 Mapper 처리 한다.
-			JsonNode responseNode;
-			try {
-				ObjectMapper objectMapper = new ObjectMapper();
-				responseNode = objectMapper.readTree(naverResponse).get("response");
-				
-				if(responseNode != null) {
-					name = responseNode.get("name").asText();
-					email = responseNode.get("email").asText();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		model.addAttribute("name", principal.getAttribute("name"));
+		model.addAttribute("email", principal.getAttribute("email"));
 		
-		// OAuth2User에서 이름과 이메일 추출 (Google 과 Naver 둘 다 쓸 수 있음)
-		if(name == null || email == null) {
-			String principalName = principal.getName(); // Name 안에 이름과 이메일 등이 모두 들어간다.
-			// principal.getName(); 로 가져온 정보 안에 이름과 이메일 등이 모두 들어가지만 이름과 이메일만 출력할 것
-			// replaceAll() : 문자열에서 공백이나 숫자 등 패턴을 찾을 때 도와주는 식
-			String[] keyValue = principalName.replaceAll("[{}]", "").split(",");
-			for(String pair : keyValue) {
-				String[] entry = pair.split("=");
-				if(entry.length == 2) {
-					String key = entry[0].trim();
-					String value = entry[1].trim();
-					if("name".equals(key)) {
-						name = value;
-					} else if ("email".equals(key)) {
-						email = value;
-					}
-				}
-			}
-		}
+		return "loginSuccess";
+	}
+	
+	@GetMapping("/loginSuccessKakao")
+	public String loginSuccess(@AuthenticationPrincipal OAuth2User principal, Model model) {
 		
-		String provider = principal.getName();
-		System.out.println("UserController 95↓ " + provider);
-		System.out.println("String provider = principal.getName() : " + provider);
-		
-		// 사용자 정보를 DB에 저장
-		// 1. model
-		UserSNS user = new UserSNS();
-		user.setName(name);
-		user.setEmail(email);
-		user.setProvider(provider);
-		
-		// 저장
-		userRepository.save(user);
-		
-		model.addAttribute("name", name);
-		model.addAttribute("email", email);
-		
-		// model이 naverResponse로 가져와야하는 경우 naver 응답 추가
-		model.addAttribute("naverResponse", naverResponse);
+		model.addAttribute("name", principal.getAttribute("name"));
+		model.addAttribute("email", principal.getAttribute("email"));
 		
 		return "loginSuccess";
 	}
