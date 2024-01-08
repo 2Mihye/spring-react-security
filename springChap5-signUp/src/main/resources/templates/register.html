@@ -33,10 +33,11 @@
 						
 						<div class="form-group">
 						<label for="email">이메일 : </label>
-						<input type="text" class="form-control" id="email" th:field="*{email}" required />
+						<input type="text" class="form-control" id="email" th:field="*{email}"
+						th:value="${#oauth2.isMemberSignedIn() ? #authentication.principal.attributes['email'] : null}" required />
 						</div>
 						
-						<button type="submit" class="btn btn-primary">Join</button>
+						<button type="submit" class="btn btn-success">Join</button>
 					</form>
 				</div>
 			</div>

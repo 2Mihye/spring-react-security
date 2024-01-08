@@ -4,11 +4,22 @@
 <mapper namespace="com.kh.springChap5.mapper.MembersMapper">
 	<!-- 회원 등록 -->
 	<insert id="insertMember" parameterType="com.kh.springChap5.model.Member">
-		INSERT INTO Members (MemberID, Username, Password, FullName, Email, RegistrationDate)
-		VALUES (members_seq.NEXTVAL, #{username}, #{password}, #{fullName}, #{email}, #{registrationDate, jdbcType=DATE})
+		INSERT INTO Members (MemberID, USERNAME, Password, FullName, Email, RegistrationDate)
+		VALUES (members_seq.NEXTVAL, #{username}, #{password}, #{fullName}, #{email}, sysdate)
 	</insert>
-	<!-- 
+	
+	<!-- 회원 수정 -->
 	<update id="updateMember" parameterType="com.kh.springChap5.model.Member">
-		UPDATE members 
-	</update> -->
+		UPDATE members SET
+		username = #{username},
+		password = #{password},
+		fullName = #{fullName},
+		email = #{email}
+		WHERE memberID = #{memberId}
+	</update>
+	
+	<!-- 회원 조회 -->
+	<select id="getAllMembers" parameterType="com.kh.springChap5.model.Member">
+		SELECT * FROM members
+	</select>
 </mapper>

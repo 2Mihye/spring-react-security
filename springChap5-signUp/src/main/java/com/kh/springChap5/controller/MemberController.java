@@ -1,5 +1,7 @@
 package com.kh.springChap5.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +23,23 @@ public class MemberController {
 	}
 	
 	@PostMapping("/register")
-	public String registerMember(Member members) {
-		memberService.signUpMember(members);
-		return "redirect:../../";
+	public String registerMember(Member member) {
+		memberService.signUpMember(member);
+		return "redirect:/";
 	}
+	
+	/*
+	@PostMapping("/login")
+	public String loginMember(Member member) {
+	
+	}*/
+	
+	@GetMapping("/list")
+	public String showMemberList(Model model) {
+		List<Member> members = memberService.getAllMembers();
+		model.addAttribute("members", members);
+		return "list";
+	}
+	
+	
 }

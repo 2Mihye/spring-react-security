@@ -6,7 +6,7 @@ import lombok.*;
 
 @Getter @Setter
 public class Member {
-	private Long memberID;
+	private Long memberId;
 	private String username;
 	private String password;
 	private String fullName;

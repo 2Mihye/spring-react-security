@@ -16,7 +16,7 @@ public class SecurityConfig {
 		.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
 				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
 		.formLogin((formLogin) -> formLogin
-				.loginPage("/members/register")
+				.loginPage("/members/login")
 				.defaultSuccessUrl("/"))
 		.logout((logout) -> logout
 				.logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
