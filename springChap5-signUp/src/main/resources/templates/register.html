@@ -15,22 +15,27 @@
 				<div class="card-body">
 					<h2 class="card-title">회원가입</h2>
 					<form th:action="@{/members/register}" th:object="${members}" method="post">
+					
 						<div class="form-group">
 						<label for="username">ID : </label>
 						<input type="text" class="form-control" id="username" th:field="*{username}" required /> <!-- 불러올때는 $모양인데 insert해서 뭔가 작성할 때는 *를 적어줘야 함 -->
 						</div>
+						
 						<div class="form-group">
 						<label for="password">비밀번호 : </label>
 						<input type="text" class="form-control" id="password" th:field="*{password}" required />
 						</div>
+						
 						<div class="form-group">
 						<label for="fullName">이름 : </label>
 						<input type="text" class="form-control" id="fullName" th:field="*{fullName}" required />
 						</div>
+						
 						<div class="form-group">
 						<label for="email">이메일 : </label>
 						<input type="text" class="form-control" id="email" th:field="*{email}" required />
 						</div>
+						
 						<button type="submit" class="btn btn-primary">Join</button>
 					</form>
 				</div>

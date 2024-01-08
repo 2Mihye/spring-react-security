@@ -23,6 +23,6 @@ public class MemberController {
 	@PostMapping("/register")
 	public String registerMember(Member members) {
 		memberService.signUpMember(members);
-		return "redirect:/members/register";
+		return "redirect:../../";
 	}
 }

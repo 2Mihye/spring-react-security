@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
@@ -21,14 +22,22 @@ public class DatabaseConfig {
 	public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
 		DataSourceInitializer initializer = new DataSourceInitializer();
 		initializer.setDataSource(dataSource);
-		initializer.setDatabasePopulator(databasePopulator());
+		initializer.setDatabasePopulator(databasePopulator(dataSource));
 		return initializer;
 	}
-	private ResourceDatabasePopulator databasePopulator() {
+	private ResourceDatabasePopulator databasePopulator(DataSource dataSource) {
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-		//if () {
+		// 만약 테이블이 없을 경우에만 생성하도록 하기!
+		if (!tableExists(dataSource, "Members")) {
 			populator.addScript(new ClassPathResource("sql/create-members-table.sql"));
-		//}
+		}
 		return populator;
+	}
+	
+	private boolean tableExists(DataSource dataSource, String tableName) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		String query = "SELECT COUNT(*) FROM ALL_TABLES WHERE TABLE_NAME = UPPER(?)";
+		int count = jdbcTemplate.queryForObject(query, Integer.class, tableName.toUpperCase());
+		return count > 0;
 	}
 }
