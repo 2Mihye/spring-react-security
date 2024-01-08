@@ -7,4 +7,7 @@
 		INSERT INTO Members (MemberID, Username, Password, FullName, Email, RegistrationDate)
 		VALUES (members_seq.NEXTVAL, #{username}, #{password}, #{fullName}, #{email}, #{registrationDate, jdbcType=DATE})
 	</insert>
+	<update id="updateMember" parameterType="com.kh.springChap5.model.Member">
+		UPDATE members 
+	</update>
 </mapper>
