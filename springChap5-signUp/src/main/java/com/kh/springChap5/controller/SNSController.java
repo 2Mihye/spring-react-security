@@ -37,6 +37,8 @@ public class SNSController {
 			naverMember.setUsername("");
 			model.addAttribute("member", naverMember);
 			return "register";
+		} else {
+			return "redirect:/error";
 		}
 	}
 }
