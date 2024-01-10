@@ -27,7 +27,7 @@ public class NaverService {
 	@Value("${naver.redirect.url}")
 	private String NAVER_REDIRECT_URL;
 	
-	private final static String NAVER_AUTH_URI = "http://nid.naver.com";
+	private final static String NAVER_AUTH_URI = "https://nid.naver.com";
 	private final static String NAVER_API_URI = "https://openapi.naver.com";
 	
 	public String getNaverLogin() {
