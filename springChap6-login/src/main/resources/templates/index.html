@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>카카오톡 로그인</title>
+	</head>
+	<body>
+		<!-- 
+			th:href="@{|${kakaoUrl}|}"
+			${} : 해당하는 변수값을 출력
+			| | : 문자열이나 리터럴을 표현식 안에 포함시킬 때 사용
+			@{} : URL 표현식으로 안에 있는 URL을 동적으로 생성
+		 -->
+		<p><a th:href="@{|${kakaoUrl}|}">카카오 로그인</a></p>
+	</body>
+</html>
