@@ -31,7 +31,7 @@ public class KakaoService {
 	private final static String KAKAO_API_URI="https://kapi.kakao.com";
 	
 	public String getKakaoLogin() {
-		return KAKAO_AUTH_URI + "/oauth/authorize?client_id=" + KAKAO_API_URI + "&redirect_uri=" + KAKAO_REDIRECT_URL + "&response_type=code"; // 카카오 개발자 공식문서에 적혀있는 주소임
+		return KAKAO_AUTH_URI + "/oauth/authorize?client_id=" + KAKAO_CLIENT_ID + "&redirect_uri=" + KAKAO_REDIRECT_URL + "&response_type=code"; // 카카오 개발자 공식문서에 적혀있는 주소임
 	}
 	
 	public KakaoDTO getKakaoInfo(String code) throws Exception {
