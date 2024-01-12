@@ -40,7 +40,7 @@ public class KakaoUserController {
 												@RequestParam String birthdate) {
 		KakaoDTO kakaoDTO = KakaoDTO.builder().email(email).nickname(nickname).name(name).birthdate(birthdate).build();
 		
-		KakaoUser registeredUser = kakaoUserService.registeredUser(kakaoDTO);
+		KakaoUser registeredUser = kakaoUserService.registerUser(kakaoDTO);
 		
 		return ResponseEntity.ok().body(new MsgEntity("Success", registeredUser));
 	}

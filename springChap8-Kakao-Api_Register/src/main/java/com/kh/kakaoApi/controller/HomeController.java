@@ -14,7 +14,6 @@ public class HomeController {
 	private final KakaoUserService kakaoUserService;
 	
 	public HomeController(KakaoUserService kakaoUserService) {
-		super();
 		this.kakaoUserService = kakaoUserService;
 	}
 	
