@@ -14,6 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+// api 가져온 다는 것은 남이 만들어준 것을 편하게 주소로만 가져온다는 것. 주소값 같은 경우 상대방이 결제하라고 막아놓으면 끝 !
+
+
 // Copy files 는 파일이 가볍거나 수정해야할 때 // Link file은 대용량이거나 할 때
 // 최종적으로 return하는 종류가 html = @Controller
 // 						 백엔드 api 주소 = @RestController
