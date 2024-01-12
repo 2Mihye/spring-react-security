@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thmeleaf.org">
+	<head>
+		<meta charset="EUC-KR">
+		<title>홈페이지/title>
+	</head>
+	<body>
+		<h2>홈페이지</h2>
+		<div th:if="${InUser}">
+			<p th:text = " '닉네임 : ' +  ${InUser.nickname} ">
+			<p th:text = " '이메일 : ' +  ${InUser.mail} ">
+			<p th:text = " '이름 : ' +  ${InUser.name} ">
+			<p th:text = " '생일 : ' +  ${InUser.birthdate} ">
+		</div>
+	
+	</body>
+</html>
