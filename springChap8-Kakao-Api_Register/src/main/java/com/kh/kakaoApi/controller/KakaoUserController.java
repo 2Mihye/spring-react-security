@@ -46,9 +46,6 @@ public class KakaoUserController {
 	
 	
 
-	
-	
-	
 	// 프론트엔드에서 가지고오는 회원가입에 대한 결과를 전달하는 PostMapping
 	@PostMapping("/register")
 	public ResponseEntity<MsgEntity> registerUser(@RequestParam String email,

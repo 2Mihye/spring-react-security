@@ -6,7 +6,7 @@ const KakaoMap = () => {
     const script = document.createElement("script");
     script.async = true;
     script.src =
-      "https://dapi.kakao.com/v2/maps/sdk.js?appkey=494af666224f9c3308af738fe912cb95&autoload=false";
+      "https://dapi.kakao.com/v2/maps/sdk.js?appkey=05b067138bcf1ee2a59ac1330b8d894e&autoload=false";
     document.head.appendChild(script);
 
     script.onload = () => {
