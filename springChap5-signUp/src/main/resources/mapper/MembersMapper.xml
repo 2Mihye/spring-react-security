@@ -23,4 +23,3 @@
 		SELECT * FROM members
 	</select>
 </mapper>
-    
