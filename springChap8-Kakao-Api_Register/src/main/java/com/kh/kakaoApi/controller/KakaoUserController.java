@@ -27,7 +27,8 @@ public class KakaoUserController {
 	// MsgEntity : 결과에 대한 내용을 담을 Entity
 	public String callback(HttpServletRequest request,
 			@RequestParam(required = false) String name,
-			@RequestParam(required = false) String birthdate, Model model,
+			@RequestParam(required = false) String birthdate,
+			Model model,
 			HttpSession session
 			) throws Exception {
 		// kakao/callback을 작성하면 JSON 형식으로 이동했지만 register html 파일로 이동하게 해줄 것
