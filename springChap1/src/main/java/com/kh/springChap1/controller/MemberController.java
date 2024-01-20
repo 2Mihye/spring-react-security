@@ -10,7 +10,7 @@ import com.kh.springChap1.repository.MemberRepository;
 
 @RestController
 @RequestMapping("/api/member")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3001", allowCredentials = "true")
 public class MemberController {
 	@Autowired
 	private MemberRepository memberRepository;
